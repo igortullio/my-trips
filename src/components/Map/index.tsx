@@ -1,5 +1,6 @@
 import { useRouter } from 'next/dist/client/router'
 import { MapContainer, TileLayer, Marker, MapConsumer } from 'react-leaflet'
+import L from 'leaflet'
 
 import * as S from './styles'
 
@@ -11,6 +12,7 @@ type Place = {
   id: string
   name: string
   slug: string
+  visited: boolean
   location: {
     latitude: number
     longitude: number
@@ -35,6 +37,14 @@ const CustomTileLayer = () => {
   )
 }
 
+const markerIcon = (visited: boolean) =>
+  new L.Icon({
+    iconUrl: visited ? 'img/marker-red.png' : 'img/marker-white.png',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40]
+  })
+
 const Map = ({ places }: MapProps) => {
   const router = useRouter()
 
@@ -42,7 +52,7 @@ const Map = ({ places }: MapProps) => {
     <S.MapWrapper>
       <MapContainer
         center={[0, 0]}
-        zoom={3}
+        zoom={4}
         style={{ height: '100%', width: '100%' }}
         minZoom={3}
         maxBounds={[
@@ -63,9 +73,10 @@ const Map = ({ places }: MapProps) => {
         </MapConsumer>
         <CustomTileLayer />
 
-        {places?.map(({ id, name, location, slug }) => (
+        {places?.map(({ id, name, location, slug, visited }) => (
           <Marker
             key={`place-${id}`}
+            icon={markerIcon(visited)}
             title={name}
             position={[location.latitude, location.longitude]}
             eventHandlers={{

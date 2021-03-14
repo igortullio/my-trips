@@ -17,10 +17,16 @@ export const Heading = styled.h1`
 `
 
 export const Body = styled.div`
-  // serve para estilos do body
-  // p, a, ul, li, blockquote
+  margin-bottom: var(--large);
+
   p {
     font-size: var(--medium);
-    line-height: var(--medium);
+    margin-bottom: var(--medium);
+  }
+
+  a {
+    font-size: var(--medium);
+    text-decoration: none;
+    color: var(--background);
   }
 `

@@ -66,7 +66,7 @@ export default function PlacesTemplate({ place }: PlacesTemplateProps) {
 
           <S.Gallery>
             {place.gallery.map((image, index) => (
-              <Image key={`photo-${index}`} src={image.url} alt={place.name} width={1000} height={600} quality={75} />
+              <Image key={`photo-${index}`} src={image.url} alt={place.name} layout="responsive" width={0} height={0} />
             ))}
           </S.Gallery>
         </S.Container>

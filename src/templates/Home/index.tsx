@@ -15,7 +15,7 @@ export default function HomeTemplate({ places }: MapProps) {
         description="A project to show my trips"
         canonical="https://my-trips.igortullio.com.br"
       />
-      <LinkWrapper href="/about">
+      <LinkWrapper href="/sobre">
         <InfoOutline size={32} aria-label="About" />
       </LinkWrapper>
       <Map places={places} />

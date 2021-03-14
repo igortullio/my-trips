@@ -2,8 +2,8 @@ export default {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://my-trips.igortullio.com.br',
-    site_name: 'My Trips'
+    url: 'https://my-trips-igortullio.vercel.app',
+    site_name: 'Minhas viagens'
   },
   twitter: {
     handle: '@igortullio',

@@ -1,5 +1,7 @@
 import { useRouter } from 'next/dist/client/router'
-import { MapContainer, TileLayer, Marker } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, MapConsumer } from 'react-leaflet'
+
+import * as S from './styles'
 
 export type MapProps = {
   places?: Place[]
@@ -37,20 +39,42 @@ const Map = ({ places }: MapProps) => {
   const router = useRouter()
 
   return (
-    <MapContainer center={[0, 0]} zoom={3} style={{ height: '100%', width: '100%' }}>
-      <CustomTileLayer />
+    <S.MapWrapper>
+      <MapContainer
+        center={[0, 0]}
+        zoom={3}
+        style={{ height: '100%', width: '100%' }}
+        minZoom={3}
+        maxBounds={[
+          [-180, 180],
+          [180, -180]
+        ]}
+      >
+        <MapConsumer>
+          {(map) => {
+            const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
-      {places?.map(({ id, name, location, slug }) => (
-        <Marker
-          key={`place-${id}`}
-          title={name}
-          position={[location.latitude, location.longitude]}
-          eventHandlers={{
-            click: () => router.push(`/place/${slug}`)
+            if (width < 768) {
+              map.setMinZoom(2)
+            }
+
+            return null
           }}
-        />
-      ))}
-    </MapContainer>
+        </MapConsumer>
+        <CustomTileLayer />
+
+        {places?.map(({ id, name, location, slug }) => (
+          <Marker
+            key={`place-${id}`}
+            title={name}
+            position={[location.latitude, location.longitude]}
+            eventHandlers={{
+              click: () => router.push(`/place/${slug}`)
+            }}
+          />
+        ))}
+      </MapContainer>
+    </S.MapWrapper>
   )
 }
 

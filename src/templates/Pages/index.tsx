@@ -1,3 +1,4 @@
+import { NextSeo } from 'next-seo'
 import { CloseOutline } from '@styled-icons/evaicons-outline/CloseOutline'
 import LinkWrapper from 'components/LinkWrapper'
 
@@ -9,17 +10,29 @@ export type PageTemplateProps = {
 }
 
 const PageTemplate = ({ heading, body }: PageTemplateProps) => (
-  <S.Content>
-    <LinkWrapper href="/">
-      <CloseOutline size={32} aria-label="Go back to map" />
-    </LinkWrapper>
+  <>
+    <NextSeo
+      title={`${heading} - My Trips`}
+      canonical="https://my-trips.igortullio.com.br"
+      openGraph={{
+        url: 'https://my-trips.igortullio.com.br',
+        title: `${heading} - My Trips`
+      }}
+    />
+    <S.Wrapper>
+      <S.Container>
+        <LinkWrapper href="/">
+          <CloseOutline size={32} aria-label="Go back to map" />
+        </LinkWrapper>
 
-    <S.Heading>{heading}</S.Heading>
+        <S.Heading>{heading}</S.Heading>
 
-    <S.Body>
-      <div dangerouslySetInnerHTML={{ __html: body }}></div>
-    </S.Body>
-  </S.Content>
+        <S.Body>
+          <div dangerouslySetInnerHTML={{ __html: body }}></div>
+        </S.Body>
+      </S.Container>
+    </S.Wrapper>
+  </>
 )
 
 export default PageTemplate
